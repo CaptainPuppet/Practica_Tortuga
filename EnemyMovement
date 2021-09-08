@@ -5,17 +5,8 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     public float speed;
-    [SerializeField]
-    private float Timer;
 
     public bool MoveRight;
-
-    public GameObject Enemy;
-    
-
-    public GameObject[]Enemies;
-
-    public Transform SpawnPointArray;
     
     
     // Start is called before the first frame update
@@ -44,7 +35,7 @@ public class EnemyMovement : MonoBehaviour
         }
 
 
-        Spawning();
+        
 
 
 
@@ -80,21 +71,7 @@ public class EnemyMovement : MonoBehaviour
         }
 
 
-    }
-
-    void Spawning()
-    {
-
-        Timer -= Time.deltaTime;
-        if (Timer <= 0f)
-        {
-            GameObject EnemyClone = Instantiate(Enemy, SpawnPointArray.position, Quaternion.identity) as GameObject;
-            Timer = 5f;
-            
-        }
-    }
-
-    
+    }   
     
 
 }
