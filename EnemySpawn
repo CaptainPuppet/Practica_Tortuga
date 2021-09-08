@@ -1,0 +1,85 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemySpawn : MonoBehaviour
+{
+
+    public GameObject Enemy;
+
+    public bool SpawningEnemies;
+    public bool SpawningEnemies2;
+
+    public GameObject[] Enemies;
+
+    public Transform SpawnPointArray;
+
+    private int totalEnemies;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        SpawningEnemies = true;
+        totalEnemies = 0;
+        StartCoroutine(Spawning());
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+
+    IEnumerator Spawning()
+    {
+
+        Vector3 SpawnPos = SpawnPointArray.position;  
+
+        while (SpawningEnemies == true)
+        {
+            
+                yield return new WaitForSeconds(2f);
+                
+                Enemies[totalEnemies] = Instantiate(Enemy, SpawnPos, Quaternion.identity);
+                totalEnemies++;
+
+            if(totalEnemies >= 4)
+            {
+
+                OnDestroy();
+                System.Array.Clear(Enemies, 0, Enemies.Length);
+                totalEnemies = 0;
+
+                
+            }
+            else
+            {
+
+                yield return new WaitForSeconds(2f);
+
+                Enemies[totalEnemies] = Instantiate(Enemy, SpawnPos, Quaternion.identity);
+                totalEnemies++;
+
+            }
+
+
+        }
+
+       
+    }
+
+    private void OnDestroy()
+    {
+
+
+        GameObject[] allObjects = GameObject.FindGameObjectsWithTag("Enemigo");
+        foreach (GameObject obj in allObjects)
+        {
+            Destroy(obj);
+        }
+
+
+
+    }
+}
